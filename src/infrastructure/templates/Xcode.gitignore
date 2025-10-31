@@ -1,0 +1,23 @@
+## Xcode
+#
+# gitignore contributors: remember to keep this file compatible with the
+# official Xcode gitignore template
+# https://github.com/github/gitignore/blob/master/Global/Xcode.gitignore
+#
+# Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+# Package.resolved
+#
+# Xcode
+#
+build/
+DerivedData/
+*.xcodeproj
+*.xcworkspace
+#
+# Other
+#
+*.app
+*.ipa

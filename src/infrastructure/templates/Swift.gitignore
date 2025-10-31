@@ -1,0 +1,8 @@
+# Swift Package Manager
+.build/
+Packages/
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/

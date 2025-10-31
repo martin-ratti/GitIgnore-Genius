@@ -1,0 +1,14 @@
+# Compiled output
+/build
+!/build/generated
+
+# IDEA project files
+.idea
+*.iml
+*.iws
+
+# Gradle files
+.gradle
+gradlew
+gradlew.bat
+gradle/wrapper/gradle-wrapper.properties
