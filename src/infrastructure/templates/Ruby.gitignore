@@ -1,0 +1,42 @@
+*.gem
+*.rbc
+/.config
+/coverage/
+/installed.gems
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+# Used by RuboCop.
+.rubocop-cache/
+
+# Except Gemspecs
+!*.gemspec
+
+# Except Rakefiles
+!Rakefile
+
+# Except gem.deps.rb
+!gem.deps.rb
+
+# Documentation cache
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+
+# Environment normalization
+/.bundle/
+/lib/bundler/man/
+
+# RVM
+.rvmrc
+.rbfu-version
+.ruby-gemset
+.ruby-version
+
+# System files
+.DS_Store
