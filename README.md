@@ -1,4 +1,4 @@
-# 🐍 GitIgnore Genius
+# 📜 GitIgnore Genius
 
 Una aplicación de escritorio simple e inteligente para generar archivos `.gitignore` personalizados para tus proyectos.
 
