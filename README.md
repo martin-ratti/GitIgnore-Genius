@@ -70,6 +70,7 @@ python main.py
 
 ```bash
 pyinstaller --onefile --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates;src/infrastructure/templates" main.py
+
 ```
 
 -----
