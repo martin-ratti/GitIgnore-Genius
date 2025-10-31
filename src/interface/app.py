@@ -1,3 +1,5 @@
+# src/interface/app.py
+
 import customtkinter as ctk
 from tkinter import filedialog, StringVar
 from tkinterdnd2 import DND_FILES, TkinterDnD
@@ -11,12 +13,12 @@ from src.infrastructure.template_loader import get_template_content
 from src.core.use_cases import generate_gitignore_content
 
 class App(ctk.CTk, TkinterDnD.DnDWrapper):
-    """Main application class for GitIgnore Genius."""
+    """Clase principal de la aplicación GitIgnore Genius."""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.TkdndVersion = TkinterDnD._require(self)
 
-        self.title("🐍 GitIgnore Genius")
+        self.title("GitIgnore Genius")
         self.geometry("800x700")
         ctk.set_appearance_mode("dark")
         self.minsize(700, 600)
@@ -28,28 +30,34 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
         self.current_project_path = None
         self.checkbox_vars: Dict[str, StringVar] = {}
 
-        # [FIX] Definición de colores (se eliminan las variables de borde no usadas)
-        self.DROP_DEFAULT_BG_COLOR = ctk.ThemeManager.theme["CTkFrame"]["fg_color"]
-        self.DROP_HOVER_BG_COLOR = "#1F6AA5" # Azul oscuro para el fondo
+        # --- Definición de Fuentes ---
+        self.font_ui_large_bold = ctk.CTkFont(family="Segoe UI", size=20, weight="bold")
+        self.font_ui_normal_bold = ctk.CTkFont(family="Segoe UI", size=14, weight="bold")
+        self.font_ui_normal = ctk.CTkFont(family="Segoe UI", size=14)
+        self.font_ui_status = ctk.CTkFont(family="Segoe UI", size=13, weight="bold")
+        self.font_mono = ctk.CTkFont(family="Consolas", size=13)
+        # self.font_mono_bold ha sido eliminado ya que CTkTextbox no lo soporta en tag_config
 
+        # --- Definición de estado de la Drop Zone ---
+        self.DROP_DEFAULT_BG_COLOR = ctk.ThemeManager.theme["CTkFrame"]["fg_color"]
+        self.DROP_HOVER_BG_COLOR = "#1F6AA5"
         self.DROP_TEXT_DEFAULT = "📂\n\nArrastra la carpeta de tu proyecto aquí\n(o haz clic para buscar)"
-        self.DROP_TEXT_HOVER = "⏬\n\n¡Suelta la carpeta o haz clic para buscar!"
+        self.DROP_TEXT_HOVER = "⏬\n\n¡Suelta la carpeta aquí para analizar!"
 
         self.create_widgets()
 
     def create_widgets(self):
-        """Creates and configures all the UI widgets."""
+        """Crea y configura todos los widgets de la UI."""
         self.main_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.main_frame.pack(padx=25, pady=25, fill="both", expand=True)
 
         self.drop_label = ctk.CTkLabel(
             self.main_frame, text=self.DROP_TEXT_DEFAULT,
-            font=ctk.CTkFont(size=20, weight="bold"),
+            font=self.font_ui_large_bold, # Fuente aplicada
             fg_color=self.DROP_DEFAULT_BG_COLOR,
-            # [FIX] Se eliminan 'border_color' y 'border_width' (no soportados)
             corner_radius=10,
             text_color=("gray20", "gray80"),
-            cursor="hand2" # [REFAC] Cursor de mano para indicar que es clicable
+            cursor="hand2"
         )
         self.drop_label.pack(fill="x", pady=(0, 20), ipady=20)
 
@@ -60,21 +68,41 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
         self.content_frame.grid_rowconfigure(0, weight=1)
 
         self.checklist_frame = ctk.CTkScrollableFrame(
-            self.content_frame, label_text="Plantillas Disponibles"
+            self.content_frame, label_text="Plantillas Disponibles",
+            label_font=self.font_ui_normal_bold # Fuente aplicada
         )
         self.checklist_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 20))
         self.populate_checklist(detected_by_category={})
         
         self.result_textbox = ctk.CTkTextbox(
-            self.content_frame, font=ctk.CTkFont(family="monospace", size=13),
+            self.content_frame, font=self.font_mono, # Fuente de código aplicada
             corner_radius=10, border_width=2,
             state="normal"
         )
         self.result_textbox.grid(row=0, column=1, sticky="nsew")
 
+        # --- Configuración de Tags para Resaltado de Sintaxis ---
+        
+        # CORRECCIÓN: Usar el color de texto de 'CTkTextbox' (claro) en lugar de 'CTkLabel' (oscuro).
+        text_color_tuple = ctk.ThemeManager.theme["CTkTextbox"]["text_color"]
+        current_mode = ctk.get_appearance_mode()
+        
+        if isinstance(text_color_tuple, (list, tuple)):
+            if current_mode == "Dark":
+                text_color = text_color_tuple[1] # CORRECCIÓN: El índice [1] es para Modo Oscuro
+            else:
+                text_color = text_color_tuple[0] # CORRECCIÓN: El índice [0] es para Modo Claro
+        else:
+            text_color = text_color_tuple # Es un solo string
+
+        self.result_textbox.tag_config("comment", foreground="#009E71") # Verde
+        self.result_textbox.tag_config("header", foreground="#1F6AA5")
+        self.result_textbox.tag_config("welcome", foreground=text_color)
+        # --- Fin de Configuración de Tags ---
+
         self.status_label = ctk.CTkLabel(
             self.main_frame, text="", text_color="#E63946",
-            font=ctk.CTkFont(size=13, weight="bold")
+            font=self.font_ui_status # Fuente aplicada
         )
         self.status_label.pack(fill="x", pady=(10, 10))
 
@@ -84,14 +112,14 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
 
         self.copy_button = ctk.CTkButton(
             self.button_frame, text="Copy to Clipboard",
-            font=ctk.CTkFont(size=14, weight="bold"),
+            font=self.font_ui_normal_bold, # Fuente aplicada
             command=self.copy_to_clipboard
         )
         self.copy_button.grid(row=0, column=0, padx=(0, 10), sticky="ew")
 
         self.save_button = ctk.CTkButton(
             self.button_frame, text="Save to File...",
-            font=ctk.CTkFont(size=14, weight="bold"),
+            font=self.font_ui_normal_bold, # Fuente aplicada
             command=self.save_to_file
         )
         self.save_button.grid(row=0, column=1, padx=(10, 0), sticky="ew")
@@ -99,11 +127,9 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
         # --- Bindings ---
         self.drop_target_register(DND_FILES)
         self.dnd_bind('<<Drop>>', self.handle_drop)
-        
-        # [REFAC] Bindings para hover y clic en el drop_label
-        self.drop_label.bind("<Enter>", self.on_enter_drop_zone)
-        self.drop_label.bind("<Leave>", self.on_leave_drop_zone)
         self.drop_label.bind("<Button-1>", self.handle_click_browse)
+        self.dnd_bind('<<DragEnter>>', self.on_enter_drop_zone)
+        self.dnd_bind('<<DragLeave>>', self.on_leave_drop_zone)
 
         self.show_welcome_message()
 
@@ -118,7 +144,7 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
         for category, rules in all_rules.items():
             category_label = ctk.CTkLabel(
                 self.checklist_frame, text=category,
-                font=ctk.CTkFont(size=14, weight="bold")
+                font=self.font_ui_normal_bold # Fuente aplicada
             )
             category_label.pack(fill="x", pady=(10, 5))
 
@@ -130,10 +156,35 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
                 checkbox = ctk.CTkCheckBox(
                     self.checklist_frame, text=tech_name, variable=var,
                     onvalue="on", offvalue="off",
+                    font=self.font_ui_normal, # Fuente aplicada
                     command=self.regenerate_content
                 )
                 checkbox.pack(fill="x", padx=20)
                 self.checkbox_vars[tech_name] = var
+
+    def _apply_syntax_highlighting(self):
+        """Aplica resaltado de sintaxis al contenido del textbox."""
+        self._clear_all_tags()
+        
+        lines = self.result_textbox.get("1.0", "end-1c").split("\n")
+        
+        for i, line in enumerate(lines):
+            line_start = f"{i + 1}.0"
+            line_end = f"{i + 1}.end"
+            
+            stripped_line = line.strip()
+            
+            if stripped_line.startswith("#===") or stripped_line.startswith("#---"):
+                self.result_textbox.tag_add("header", line_start, line_end)
+            elif stripped_line.startswith("#"):
+                self.result_textbox.tag_add("comment", line_start, line_end)
+            # El texto normal usará la fuente base 'self.font_mono' del textbox
+
+    def _clear_all_tags(self):
+        """Limpia todos los tags de resaltado del textbox."""
+        self.result_textbox.tag_remove("comment", "1.0", "end")
+        self.result_textbox.tag_remove("header", "1.0", "end")
+        self.result_textbox.tag_remove("welcome", "1.0", "end")
 
     def regenerate_content(self):
         """
@@ -150,6 +201,7 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
                 selected_techs, get_template_content
             )
             self.update_ui_with_result(gitignore_text)
+            self._apply_syntax_highlighting() # Aplica el resaltado
         except FileNotFoundError as e:
             error_msg = f"Error: {e}. Desmarca la plantilla."
             self.status_label.configure(text=error_msg)
@@ -157,7 +209,8 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
             self.status_label.configure(text=f"Error inesperado: {str(e)}")
 
     def show_welcome_message(self):
-        """Muestra el mensaje de bienvenida en el textbox editable."""
+        """Muestra el mensaje de bienvenida con la fuente de UI."""
+        self._clear_all_tags()
         self.result_textbox.delete("1.0", "end")
         welcome_text = (
             "¡Bienvenido a GitIgnore Genius! 🚀\n\n"
@@ -167,25 +220,22 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
             "4. Añade o quita las que necesites.\n"
             "5. Edita, copia o guarda tu .gitignore final."
         )
-        self.result_textbox.insert("1.0", welcome_text)
+        self.result_textbox.insert("1.0", welcome_text, "welcome")
 
-    # [FIX] Se elimina 'border_color' y 'border_width' (no soportados)
     def on_enter_drop_zone(self, event):
-        """Cambia el texto y color del drop_label al entrar."""
+        """Cambia el texto y color del drop_label al arrastrar un archivo sobre él."""
         self.drop_label.configure(
             text=self.DROP_TEXT_HOVER,
             fg_color=self.DROP_HOVER_BG_COLOR
         )
 
-    # [FIX] Se elimina 'border_color' y 'border_width' (no soportados)
     def on_leave_drop_zone(self, event):
-        """Restaura el texto y color del drop_label al salir."""
+        """Restaura el texto y color del drop_label al arrastrar un archivo fuera."""
         self.drop_label.configure(
             text=self.DROP_TEXT_DEFAULT,
             fg_color=self.DROP_DEFAULT_BG_COLOR
         )
 
-    # [REFAC] Nueva función para manejar el clic
     def handle_click_browse(self, event=None):
         """Abre el diálogo 'askdirectory' y procesa la carpeta."""
         project_path = filedialog.askdirectory(
@@ -204,7 +254,6 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
             self.show_error_message(f"Error: La ruta soltada no es un directorio válido.")
             self.on_leave_drop_zone(None)
 
-    # [REFAC] Lógica de análisis extraída a su propia función
     def process_project_path(self, project_path: str):
         """
         Función central para analizar un project_path (desde drop o clic)
@@ -214,7 +263,7 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
         self.status_label.configure(text="")
         
         self.drop_label.configure(text=f"Analizando: {os.path.basename(project_path)}...")
-        self.update_idletasks() # Forzar actualización de UI
+        self.update_idletasks()
         
         try:
             all_detected, detected_by_category = detect_technologies(project_path)
@@ -230,11 +279,10 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
         except Exception as e:
             self.show_error_message(f"Error inesperado al analizar: {str(e)}")
         
-        # Restaura el estado visual de la drop_label (color y texto)
         self.after(2500, lambda: self.on_leave_drop_zone(None))
 
     def show_error_message(self, message: str):
-        """Miyestra un error y resetea la UI."""
+        """Muestra un error y resetea la UI."""
         self.status_label.configure(text=message)
         self.show_welcome_message()
         self.drop_label.configure(text=self.DROP_TEXT_DEFAULT)
@@ -242,6 +290,7 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
 
     def update_ui_with_result(self, text: str):
         """Muestra el contenido generado en el textbox."""
+        self._clear_all_tags()
         self.result_textbox.delete("1.0", "end")
         self.result_textbox.insert("1.0", text)
 
@@ -266,7 +315,6 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
         
         if file_path:
             try:
-                # [FIX] Corregido el error tipográfico file_ápath -> file_path
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(content)
                 
@@ -276,4 +324,6 @@ class App(ctk.CTk, TkinterDnD.DnDWrapper):
             
             except OSError as e:
                 self.show_error_message(f"Error al guardar: {e}")
+
+
 
