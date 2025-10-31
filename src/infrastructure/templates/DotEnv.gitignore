@@ -1,0 +1,12 @@
+# Variables de entorno locales y secretos
+# No versionar NUNCA estos archivos.
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+# Archivos de certificados o claves privadas
+*.pem
+*.key

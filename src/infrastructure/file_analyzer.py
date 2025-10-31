@@ -52,6 +52,13 @@ CATEGORIZED_DETECTION_RULES: Dict[str, Dict[str, DetectionRule]] = {
         "MongoDB": lambda path: os.path.exists(os.path.join(path, 'mongod.conf')),
         "Redis": lambda path: os.path.exists(os.path.join(path, 'redis.conf')) or os.path.exists(os.path.join(path, 'dump.rdb')),
     },
+
+    # --- NUEVA CATEGORÍA PARA SECRETOS ---
+    "Secretos y Configuración": {
+        "DotEnv": lambda path: any(f.startswith('.env') for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))),
+    },
+    # --- FIN NUEVA CATEGORÍA ---
+
     "Motores de Videojuegos": {
         "Unity": lambda path: os.path.isdir(os.path.join(path, 'Assets')) and \
                               os.path.isdir(os.path.join(path, 'ProjectSettings')),
@@ -100,6 +107,6 @@ def detect_technologies(project_path: str) -> Tuple[List[str], Dict[str, List[st
     except (OSError, FileNotFoundError) as e:
         print(f"Could not fully analyze path {project_path}: {e}")
 
-    # Esta es la línea que faltaba en tu archivo
     return sorted(list(set(all_detected))), detected_by_category
+
 
