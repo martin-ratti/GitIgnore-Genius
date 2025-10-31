@@ -1,0 +1,11 @@
+# MongoDB
+#
+# Data directory
+/data/db/
+/journal/
+
+# Lock file
+mongod.lock
+
+# Diagnostic data
+/diagnostic.data/

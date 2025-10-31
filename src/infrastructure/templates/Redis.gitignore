@@ -1,0 +1,7 @@
+# Redis
+#
+# Dump file
+dump.rdb
+
+# Append Only File
+*.aof

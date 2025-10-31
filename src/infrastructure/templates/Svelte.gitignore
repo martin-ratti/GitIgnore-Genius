@@ -1,0 +1,10 @@
+# SvelteKit build artifacts
+.svelte-kit/
+build/
+
+# IDE config
+.idea/
+.vscode/
+
+# Dependencies
+node_modules/

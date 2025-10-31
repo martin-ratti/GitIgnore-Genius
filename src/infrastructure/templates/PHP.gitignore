@@ -1,4 +1,6 @@
+# Se debe ignorar el directorio de dependencias, pero no el lock file.
 /vendor/
-composer.lock
+
+# Archivos de entorno y logs
 .env
 *.log

@@ -1,0 +1,10 @@
+# Microsoft SQL Server
+#
+# Database files
+*.mdf
+*.ldf
+*.ndf
+
+# Backup files
+*.bak
+*.trn

@@ -1,0 +1,13 @@
+# build directory
+dist/
+
+# astro directory
+.astro/
+
+# logs
+*.log
+*.log*
+
+# environment variables
+.env
+.env.*

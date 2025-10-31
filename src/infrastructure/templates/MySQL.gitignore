@@ -1,0 +1,16 @@
+# MySQL/MariaDB
+
+# Se recomienda colocar los backups (.sql, .sql.gz) en un directorio específico
+# y añadir ese directorio aquí, en lugar de ignorar todos los *.sql.
+# Ejemplo:
+# /backups/
+# /dumps/
+
+# Archivos de volcado que son inequívocamente backups
+*.dump
+*.dump.gz
+
+# Archivos de log y datos del servidor (si se ejecutan localmente en el proyecto)
+*.log
+/data/
+/var/lib/mysql/
