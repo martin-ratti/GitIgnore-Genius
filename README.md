@@ -1,57 +1,62 @@
-````markdown
+
+-----
+
 # 📜 GitIgnore Genius
 
 **Una aplicación de escritorio simple e inteligente para generar archivos `.gitignore` personalizados para tus proyectos.**
 
-!
+[Aquí va una captura de pantalla o GIF de la aplicación]
 
----
+-----
 
 ## ✨ Características
 
-* **🔍 Detección Automática:** Arrastra un proyecto y la app sugerirá plantillas basadas en los lenguajes, frameworks e IDEs que encuentre.
-* **🎛️ Control Total:** Selecciona, deselecciona y edita manualmente las plantillas para crear el `.gitignore` perfecto para tus necesidades.
-* **📚 Amplia Biblioteca:** Incluye docenas de plantillas robustas y seguras basadas en los estándares de la comunidad.
-* **💾 Guardado Directo:** Guarda el resultado directamente como un archivo `.gitignore` en tu proyecto con un solo clic.
-* **📦 Ejecutable Simple:** Empaquetado como un único archivo `.exe` para Windows que no requiere instalación.
+  * **🔍 Detección Automática:** Arrastra un proyecto y la app sugerirá plantillas basadas en los lenguajes, frameworks e IDEs que encuentre.
+  * **🎛️ Control Total:** Selecciona, deselecciona y edita manualmente las plantillas para crear el `.gitignore` perfecto para tus necesidades.
+  * **📚 Amplia Biblioteca:** Incluye docenas de plantillas robustas y seguras basadas en los estándares de la comunidad.
+  * **💾 Guardado Directo:** Guarda el resultado directamente como un archivo `.gitignore` en tu proyecto con un solo clic.
+  * **📦 Ejecutable Simple:** Empaquetado como un único archivo `.exe` para Windows que no requiere instalación.
 
----
+-----
 
 ## 🚀 Cómo Usar
 
-1.  Descarga la última versión del `.exe` desde la sección de **[Releases](https://github.com/TU_USUARIO/GitIgnore-Genius/releases)** de este repositorio.
+1.  Descarga la última versión del `.exe` desde la sección de **[Releases](https://www.google.com/search?q=https://github.com/martin-ratti/GitIgnore-Genius/releases)** de este repositorio.
 2.  Ejecuta `GitIgnoreGenius.exe`.
 3.  Arrastra la carpeta de tu proyecto sobre la ventana. Las tecnologías detectadas se marcarán automáticamente en la lista de la izquierda.
 4.  **Añade o quita** las plantillas que necesites usando los checkboxes. El resultado se actualizará en tiempo real.
 5.  **Edita** el texto directamente en el panel de la derecha si necesitas añadir reglas personalizadas.
 6.  Haz clic en **"Copy to Clipboard"** para copiar el resultado o en **"Save to File..."** para guardarlo directamente en tu proyecto.
 
----
+-----
 
-## ⚠️ ¡Importante! Revisa Siempre el Resultado
+## ⚠️ ¡Importante\! Revisa Siempre el Resultado
 
 Aunque las plantillas están basadas en las mejores prácticas, cada proyecto es único. Antes de confirmar tu `.gitignore`, **tómate un momento para revisarlo** y asegurarte de que no esté ignorando accidentalmente archivos que necesites versionar (como scripts de migración o configuraciones específicas).
 
 > 💡 Recuerda: Tú eres el responsable final del contenido de tu repositorio.
 
----
+-----
 
 ## 🛠️ Para Desarrolladores (Compilar desde la Fuente)
 
 Si deseas modificar o compilar el proyecto tú mismo, sigue estos pasos:
 
-### 1. Clona el repositorio
+### 1\. Clona el repositorio
 
 ```bash
-git clone [https://github.com/TU_USUARIO/GitIgnore-Genius.git](https://github.com/TU_USUARIO/GitIgnore-Genius.git)
+git clone https://github.com/martin-ratti/GitIgnore-Genius.git
 cd GitIgnore-Genius
-````
+```
 
 ### 2\. Crea y activa un entorno virtual
 
 ```bash
 python -m venv venv
+
+# En Windows (CMD/PowerShell)
 .\venv\Scripts\Activate
+
 ```
 
 ### 3\. Instala las dependencias
@@ -69,7 +74,9 @@ python main.py
 ### 5\. Compila el ejecutable (One-File)
 
 ```bash
+# En Windows
 pyinstaller --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates;templates" main.py
+
 ```
 
 -----
@@ -110,5 +117,5 @@ Este proyecto puedes usarlo, modificarlo y distribuirlo libremente, siempre cita
 
 Hecho con ❤️ por **[Martín Ratti](https://www.google.com/search?q=https://github.com/martin-ratti)**
 
-```
-```
+-----
+
