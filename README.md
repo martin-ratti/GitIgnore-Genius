@@ -57,6 +57,8 @@ python -m venv venv
 # En Windows (CMD/PowerShell)
 .\venv\Scripts\Activate
 
+# En macOS/Linux (Bash/Zsh)
+source venv/bin/activate
 ```
 
 ### 3\. Instala las dependencias
@@ -74,9 +76,11 @@ python main.py
 ### 5\. Compila el ejecutable (One-File)
 
 ```bash
-# En Windows
-pyinstaller --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates;templates" main.py
+# En Windows (usa ; como separador)
+pyinstaller --onefile --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates;templates" main.py
 
+# En macOS/Linux (usa : como separador)
+pyinstaller --onefile --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates:templates" main.py
 ```
 
 -----
@@ -118,4 +122,3 @@ Este proyecto puedes usarlo, modificarlo y distribuirlo libremente, siempre cita
 Hecho con ❤️ por **[Martín Ratti](https://www.google.com/search?q=https://github.com/martin-ratti)**
 
 -----
-
