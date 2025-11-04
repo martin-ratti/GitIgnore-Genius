@@ -69,8 +69,7 @@ python main.py
 ### 5\. Compila el ejecutable (One-File)
 
 ```bash
-pyinstaller --onefile --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates;src/infrastructure/templates" main.py
-
+pyinstaller --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates;templates" main.py
 ```
 
 -----
