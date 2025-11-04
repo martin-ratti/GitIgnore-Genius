@@ -27,7 +27,22 @@ CATEGORIZED_DETECTION_RULES: Dict[str, Dict[str, DetectionRule]] = {
                             os.path.exists(os.path.join(path, 'CMakeLists.txt')),
     },
     "Frameworks (Web y Fullstack)": {
-        "Node.js (JS-TS)": lambda path: os.path.exists(os.path.join(path, 'package.json')),
+        
+        # --- INICIO DE LA CORRECCIÓN ---
+        # La clave DEBE coincidir con el nombre del archivo de plantilla.
+        # (Ej. "NodeJsTs" debe coincidir con "NodeJsTs.gitignore")
+
+        # Regla para TypeScript: Detecta 'package.json' Y 'tsconfig.json'.
+        "NodeJsTs": lambda path: os.path.exists(os.path.join(path, 'package.json')) and \
+                                 os.path.exists(os.path.join(path, 'tsconfig.json')),
+        
+        # Regla para JavaScript: Detecta 'package.json' pero NO 'tsconfig.json'.
+        # Se coloca después de 'NodeJsTs' para que tenga menor prioridad.
+        "Node": lambda path: os.path.exists(os.path.join(path, 'package.json')) and \
+                             not os.path.exists(os.path.join(path, 'tsconfig.json')),
+        
+        # --- FIN DE LA CORRECCIÓN ---
+
         "Angular": lambda path: os.path.exists(os.path.join(path, 'angular.json')),
         "React": lambda path: os.path.exists(os.path.join(path, 'public/index.html')) and \
                               os.path.exists(os.path.join(path, 'src/index.js')),
@@ -94,6 +109,10 @@ def detect_technologies(project_path: str) -> Tuple[List[str], Dict[str, List[st
     detected_by_category: Dict[str, List[str]] = {}
 
     try:
+        # Intenta listar los archivos una vez.
+        # Las reglas (lambdas) aún pueden fallar si hay problemas de permisos
+        # en subdirectorios, por eso el 'try' principal se mantiene.
+        
         for category, rules in CATEGORIZED_DETECTION_RULES.items():
             detected_in_category = []
             for tech, rule in rules.items():
@@ -108,5 +127,3 @@ def detect_technologies(project_path: str) -> Tuple[List[str], Dict[str, List[st
         print(f"Could not fully analyze path {project_path}: {e}")
 
     return sorted(list(set(all_detected))), detected_by_category
-
-
