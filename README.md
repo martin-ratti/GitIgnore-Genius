@@ -1,124 +1,147 @@
+<h1 align="center">📜 GitIgnore Genius</h1>
 
------
+<div align="center">
+    <img src="https://img.shields.io/badge/Estado-Estable-success?style=for-the-badge&logo=check&logoColor=white" alt="Estado Badge"/>
+    <img src="https://img.shields.io/badge/Versión-1.0.0-blue?style=for-the-badge" alt="Version Badge"/>
+</div>
 
-# 📜 GitIgnore Genius
+<p align="center">
+    <a href="https://github.com/martin-ratti" target="_blank" style="text-decoration: none;">
+        <img src="https://img.shields.io/badge/👤%20Martín%20Ratti-martin--ratti-000000?style=for-the-badge&logo=github&logoColor=white" alt="Martin"/>
+    </a>
+</p>
 
-**Una aplicación de escritorio simple e inteligente para generar archivos `.gitignore` personalizados para tus proyectos.**
+<p align="center">
+    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Badge"/>
+    <img src="https://img.shields.io/badge/GUI-CustomTkinter-2B2B2B?style=for-the-badge&logo=tkinter&logoColor=white" alt="CustomTkinter Badge"/>
+    <img src="https://img.shields.io/badge/Drag%20%26%20Drop-TkinterDnD-orange?style=for-the-badge&logo=move&logoColor=white" alt="DnD Badge"/>
+    <img src="https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows Badge"/>
+</p>
 
-[Aquí va una captura de pantalla o GIF de la aplicación]
+<hr>
 
------
+<h2>🎯 Objetivo y Alcance</h2>
 
-## ✨ Características
+<p>
+    <strong>GitIgnore Genius</strong> es una aplicación de escritorio inteligente diseñada para resolver el problema común de configurar archivos <code>.gitignore</code>.
+    Su misión es analizar automáticamente la estructura de tu proyecto y generar un archivo de exclusión robusto y personalizado.
+</p>
 
-  * **🔍 Detección Automática:** Arrastra un proyecto y la app sugerirá plantillas basadas en los lenguajes, frameworks e IDEs que encuentre.
-  * **🎛️ Control Total:** Selecciona, deselecciona y edita manualmente las plantillas para crear el `.gitignore` perfecto para tus necesidades.
-  * **📚 Amplia Biblioteca:** Incluye docenas de plantillas robustas y seguras basadas en los estándares de la comunidad.
-  * **💾 Guardado Directo:** Guarda el resultado directamente como un archivo `.gitignore` en tu proyecto con un solo clic.
-  * **📦 Ejecutable Simple:** Empaquetado como un único archivo `.exe` para Windows que no requiere instalación.
+<p>
+    Ya no es necesario copiar y pegar manualmente desde múltiples sitios. Simplemente arrastra tu carpeta y la aplicación detectará lenguajes, frameworks, 
+    entornos y sistemas operativos, permitiéndote generar un archivo seguro con un solo clic.
+</p>
 
------
+<hr>
 
-## 🚀 Cómo Usar
+<h2>⚙️ Stack Tecnológico & Arquitectura</h2>
 
-1.  Descarga la última versión del `.exe` desde la sección de **[Releases](https://www.google.com/search?q=https://github.com/martin-ratti/GitIgnore-Genius/releases)** de este repositorio.
-2.  Ejecuta `GitIgnoreGenius.exe`.
-3.  Arrastra la carpeta de tu proyecto sobre la ventana. Las tecnologías detectadas se marcarán automáticamente en la lista de la izquierda.
-4.  **Añade o quita** las plantillas que necesites usando los checkboxes. El resultado se actualizará en tiempo real.
-5.  **Edita** el texto directamente en el panel de la derecha si necesitas añadir reglas personalizadas.
-6.  Haz clic en **"Copy to Clipboard"** para copiar el resultado o en **"Save to File..."** para guardarlo directamente en tu proyecto.
+<p>El proyecto sigue los principios de <strong>Clean Architecture</strong> para asegurar mantenibilidad y fácil extensión de nuevas tecnologías.</p>
 
------
+<table>
+ <thead>
+  <tr>
+   <th>Capa / Componente</th>
+   <th>Tecnología / Ruta</th>
+   <th>Descripción</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td><strong>Interface (GUI)</strong></td>
+   <td><code>src/interface/</code><br>(CustomTkinter)</td>
+   <td>Maneja la interacción visual, el <em>Drag & Drop</em>, y el editor de texto integrado con resaltado de sintaxis básico.</td>
+  </tr>
+  <tr>
+   <td><strong>Core (Dominio)</strong></td>
+   <td><code>src/core/</code></td>
+   <td>Lógica pura de negocio. Orquesta la combinación de múltiples plantillas en un único string coherente.</td>
+  </tr>
+  <tr>
+   <td><strong>Infrastructure</strong></td>
+   <td><code>src/infrastructure/</code><br>(File Analyzer)</td>
+   <td>Implementa las reglas de detección (heurísticas) y carga las plantillas <code>.gitignore</code> desde el disco.</td>
+  </tr>
+  <tr>
+   <td><strong>Empaquetado</strong></td>
+   <td>PyInstaller</td>
+   <td>Generación del ejecutable <em>single-file</em> con todos los recursos y plantillas embebidos.</td>
+  </tr>
+ </tbody>
+</table>
 
-## ⚠️ ¡Importante\! Revisa Siempre el Resultado
+<hr>
 
-Aunque las plantillas están basadas en las mejores prácticas, cada proyecto es único. Antes de confirmar tu `.gitignore`, **tómate un momento para revisarlo** y asegurarte de que no esté ignorando accidentalmente archivos que necesites versionar (como scripts de migración o configuraciones específicas).
+<h2>🚀 Características Principales</h2>
 
-> 💡 Recuerda: Tú eres el responsable final del contenido de tu repositorio.
+<ul>
+    <li><strong>🔍 Detección Automática (Smart Scan)</strong>: Analiza "huellas digitales" en tu carpeta (ej. <code>package.json</code>, <code>venv/</code>, <code>.idea/</code>) para sugerir las plantillas correctas.</li>
+    <li><strong>🎛️ Control Total</strong>: Panel lateral interactivo para activar o desactivar tecnologías detectadas manualmente.</li>
+    <li><strong>📚 Amplia Biblioteca</strong>: Soporte nativo para decenas de tecnologías incluyendo Python, Node, React, Java, Unity, Flutter, macOS, Windows, y más.</li>
+    <li><strong>✍️ Editor en Vivo</strong>: Puedes modificar el resultado generado directamente en la aplicación antes de guardarlo.</li>
+    <li><strong>💾 Guardado Rápido</strong>: Funciones directas para copiar al portapapeles o guardar el archivo <code>.gitignore</code> en la raíz del proyecto.</li>
+</ul>
 
------
+<hr>
 
-## 🛠️ Para Desarrolladores (Compilar desde la Fuente)
+<h2>🛠️ Modo de Uso</h2>
 
-Si deseas modificar o compilar el proyecto tú mismo, sigue estos pasos:
+<pre>
+/GitIgnoreGenius
+├── GitIgnoreGenius.exe    <-- La aplicación
+└── icon.ico               <-- Icono del sistema
+</pre>
 
-### 1\. Clona el repositorio
+<ol>
+    <li><strong>Iniciar:</strong> Ejecuta <code>GitIgnoreGenius.exe</code>.</li>
+    <li><strong>Analizar:</strong> Arrastra la carpeta de tu proyecto sobre la ventana o haz clic para buscarla.</li>
+    <li><strong>Personalizar:</strong> Revisa las tecnologías marcadas en la lista izquierda. Añade o quita según necesites.</li>
+    <li><strong>Editar (Opcional):</strong> Realiza ajustes manuales en el editor de texto de la derecha.</li>
+    <li><strong>Exportar:</strong> Haz clic en <strong>"Save to File..."</strong> para guardar el archivo directamente en tu proyecto.</li>
+</ol>
 
-```bash
+<hr>
+
+<h2>🧑‍💻 Setup para Desarrolladores</h2>
+
+Si deseas contribuir con nuevas plantillas o mejorar el código:
+
+<h3>1. Configuración del Entorno</h3>
+<pre><code># Clonar repositorio
 git clone https://github.com/martin-ratti/GitIgnore-Genius.git
-cd GitIgnore-Genius
-```
 
-### 2\. Crea y activa un entorno virtual
-
-```bash
+# Crear entorno virtual
 python -m venv venv
+.\venv\Scripts\activate  # Windows
 
-# En Windows (CMD/PowerShell)
-.\venv\Scripts\Activate
-
-# En macOS/Linux (Bash/Zsh)
-source venv/bin/activate
-```
-
-### 3\. Instala las dependencias
-
-```bash
+# Instalar dependencias
 pip install -r requirements.txt
-```
+</code></pre>
 
-### 4\. Ejecuta la aplicación
+<h3>2. Ejecución en Desarrollo</h3>
+<pre><code>python main.py</code></pre>
 
-```bash
-python main.py
-```
+<h3>3. Compilación (.exe)</h3>
+<p>Es necesario incluir la carpeta de plantillas en el ejecutable:</p>
+<pre><code>pyinstaller --onefile --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates;templates" main.py</code></pre>
 
-### 5\. Compila el ejecutable (One-File)
+<hr>
 
-```bash
-# En Windows (usa ; como separador)
-pyinstaller --onefile --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates;templates" main.py
+<h2>🤝 Cómo Contribuir (Añadir Plantillas)</h2>
 
-# En macOS/Linux (usa : como separador)
-pyinstaller --onefile --noconsole --name GitIgnoreGenius --icon="icon.ico" --add-data "src/infrastructure/templates:templates" main.py
-```
+Expandir la base de conocimientos es muy fácil:
 
------
+1.  **Crear Plantilla:** Añade un archivo `.gitignore` en `src/infrastructure/templates/` (ej. `Terraform.gitignore`).
+2.  **Definir Regla:** En `src/infrastructure/file_analyzer.py`, añade una entrada en `CATEGORIZED_DETECTION_RULES`:
+    ```python
+    "Terraform": lambda path: any(f.endswith('.tf') for f in os.listdir(path)),
+    ```
+3.  **Pull Request:** Envía tus cambios para revisión.
 
-## 🤝 Cómo Contribuir (Añadir Plantillas)
+<hr>
 
-¡Las contribuciones son bienvenidas\! Si quieres añadir soporte para una nueva tecnología, el proceso es muy sencillo:
+<h2>⚖️ Créditos</h2>
 
-1.  **Fork y Clona:** Haz un "Fork" del repositorio y clónalo en tu máquina.
-2.  **Crea la Plantilla:** Añade un nuevo archivo `.gitignore` a la carpeta `src/infrastructure/templates/`. El nombre del archivo debe ser el nombre de la tecnología (ej. `Terraform.gitignore`).
-3.  **Añade la Regla de Detección:**
-      * Abre el archivo `src/infrastructure/file_analyzer.py`.
-      * Busca el diccionario `CATEGORIZED_DETECTION_RULES`.
-      * Añade una nueva entrada en la categoría correspondiente. La clave debe ser **exactamente el mismo nombre** que le diste a tu archivo de plantilla (sin la extensión). El valor debe ser una función `lambda` que detecte una "huella digital" de esa tecnología.
-      * **Ejemplo para Terraform:**
-        ```python
-        # Dentro de una categoría, por ejemplo "Infraestructura":
-        "Terraform": lambda path: any(f.endswith('.tf') for f in os.listdir(path)),
-        ```
-4.  **Crea un Pull Request:** Envía un Pull Request con tus cambios para que puedan ser revisados e integrados.
-
------
-
-## 🧩 Tecnologías Utilizadas
-
-  * Python 🐍
-  * CustomTkinter & TkinterDnD2
-  * PyInstaller 📦
-  * Plantillas `.gitignore` oficiales de la comunidad de GitHub.
-
------
-
-## 📜 Licencia
-
-Este proyecto puedes usarlo, modificarlo y distribuirlo libremente, siempre citando la autoría correspondiente.
-
------
-
-Hecho con ❤️ por **[Martín Ratti](https://www.google.com/search?q=https://github.com/martin-ratti)**
-
------
+<p>
+    Desarrollado por <strong>Martín Ratti</strong>. Las plantillas base provienen de la colección oficial de GitHub y Toptal.
+</p>
